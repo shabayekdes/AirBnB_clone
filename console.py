@@ -3,6 +3,7 @@
 """
 import cmd
 import shlex
+from models import storage
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -21,6 +22,13 @@ class HBNBCommand(cmd.Cmd):
               "Place": Place, "Review": Review}
 
     prompt = "(hbnb) "
+    models = ["BaseModel",
+               "User",
+               "State",
+               "City",
+               "Amenity",
+               "Place",
+               "Review"]
 
     def do_quit(self, args):
         """ Quit command to exit the program.\n
@@ -38,10 +46,22 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_all(self, args):
-        """ Print string representation of all instances.
-        """
-        print("Get All ...!")
-        pass
+        """Prints all string representation of all instances
+        based or not on the class name."""
+
+        all_data = storage.all()
+        my_data = []
+        if args not in HBNBCommand.my_models:
+            print("** class doesn't exist **")
+            return
+        if args in self.models:
+            for key, value in all_data.items():
+                if args in key:
+                    split_str = key.split(".")
+                    new_str = "[" + split_str[0] + "]"\
+                        + " (" + split_str[1] + ")"
+                    my_data.append(new_str + " " + str(value))
+                    print(my_data)
 
     def do_show(self, args):
         """ Print the string representation of an instance.
