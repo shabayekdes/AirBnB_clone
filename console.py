@@ -141,10 +141,30 @@ class HBNBCommand(cmd.Cmd):
             print("** invalid value for '{}' attribute type **".format(attribute))
         
     def do_destroy(self, args):
-        """ Delete an instance.
-        """
-        print("Delete ...!")
-        pass
+        """Deletes an instance based on the class name and id."""
+        args_list = shlex.split(args)
+        if len(args_list) == 0:
+            print("** class name missing **")
+            return
+
+        class_name = args_list[0]
+        if class_name not in HBNBCommand.models:
+            print("** class doesn't exist **")
+            return
+
+        if len(args_list) > 1:
+            instance_id = args_list[1]
+
+            instance_key = "{}.{}".format(class_name, instance_id)
+            if instance_key in storage.all():
+                del storage.all()[instance_key]
+
+                storage.save()
+                print("Instance {} deleted.".format(instance_key))
+            else:
+                print("** no instance found **")
+        else:
+            print("** instance id missing **")
 
     def do_count(self, args):
         """ Count the number of instances of a class.
