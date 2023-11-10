@@ -66,8 +66,24 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, args):
         """ Print the string representation of an instance.
         """
-        print("Show ...!")
-        pass
+        if not args:
+            print("** class name missing **")
+            return
+        
+        args_split = shlex.split(args)
+        if args_split[0] not in HBNBCommand.my_models:
+            print("** class doesn't exist **")
+            return
+        elif len(args_split) == 1:
+            print("** instance id missing **")
+            return
+        my_data = storage.all()
+        new_object = "{}.{}".format(args_split[0], args_split[1])
+        if new_object not in my_data.keys():
+            print("** no instance found **")
+            return
+        else:
+            print("{}".format(my_data[new_object]))
 
     def do_create(self, args):
         """ Create a new instance of a specified class.
