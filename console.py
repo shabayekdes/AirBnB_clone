@@ -2,6 +2,7 @@
 """ Main script for the HBnB console.
 """
 import cmd
+import re
 import shlex
 from models import storage
 from models.base_model import BaseModel
@@ -34,6 +35,34 @@ class HBNBCommand(cmd.Cmd):
         "Place",
         "Review"
     ]
+
+    def default(self, arg):
+        """Default behavior for cmd module when input is invalid."""
+        argdict = {
+            "all": self.do_all,
+            "show": self.do_show,
+            "destroy": self.do_destroy,
+            "count": self.do_count,
+            "update": self.do_update
+        }
+
+        match_class = re.match(r"(\w+)", arg)
+        match_command = re.search(r"(\w+)\((.*?)\)", arg)
+
+        if match_class and match_command:
+            class_name = match_class.group(1)
+            command_name = match_command.group(1)
+            command_args = match_command.group(2)
+
+            if command_name in argdict.keys():
+                if command_args:
+                    full_command = "{} {}".format(class_name, command_args)
+                else:
+                    full_command = class_name                
+                return argdict[command_name](full_command)
+
+        print("*** Unknown syntax: {}".format(arg))
+        return False
 
     def do_quit(self, args):
         """ Quit command to exit the program.\n
