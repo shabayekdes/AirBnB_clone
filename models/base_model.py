@@ -3,8 +3,9 @@ from datetime import datetime
 from uuid import uuid4
 import models
 
+
 class BaseModel:
-    def __init__(self , *arguments , **KeyWordArguments):
+    def __init__(self, *arguments, **KeyWordArguments):
         self.id = str(uuid4())
         TimeFormat = "%Y-%m-%dT%H:%M:%S.%f"
         self.updated_at = datetime.today()
@@ -35,7 +36,7 @@ class BaseModel:
         result_dict["created_at"] = self.created_at.isoformat()
         result_dict["__class__"] = self.__class__.__name__
         return result_dict
-    
+
     def __str__(self):
         """Return the print/str representation of the BaseModel instance."""
         class_name = self.__class__.__name__
