@@ -142,18 +142,18 @@ class HBNBCommand(cmd.Cmd):
         
     def do_destroy(self, args):
         """Deletes an instance based on the class name and id."""
-        args_list = shlex.split(args)
-        if len(args_list) == 0:
+        args_split = shlex.split(args)
+        if len(args_split) == 0:
             print("** class name missing **")
             return
 
-        class_name = args_list[0]
+        class_name = args_split[0]
         if class_name not in HBNBCommand.models:
             print("** class doesn't exist **")
             return
 
-        if len(args_list) > 1:
-            instance_id = args_list[1]
+        if len(args_split) > 1:
+            instance_id = args_split[1]
 
             instance_key = "{}.{}".format(class_name, instance_id)
             if instance_key in storage.all():
@@ -169,8 +169,12 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, args):
         """ Count the number of instances of a class.
         """
-        print("Count ...!")
-        pass
+        args_split = shlex.split(args)
+        count = 0
+        for obj in storage.all().values():
+            if args_split[0] == obj.__class__.__name__:
+                count += 1
+        print(count)
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
