@@ -12,23 +12,28 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+
 class HBNBCommand(cmd.Cmd):
-    """ HBnBCommand class defines a command-line 
+    """ HBnBCommand class defines a command-line
     interpreter for object management and storage.
     """
 
-    my_models = {"BaseModel": BaseModel, "User": User, "State": State,
-              "City": City, "Amenity": Amenity,
-              "Place": Place, "Review": Review}
+    my_models = {
+        "BaseModel": BaseModel, "User": User, "State": State,
+        "City": City, "Amenity": Amenity,
+        "Place": Place, "Review": Review
+    }
 
     prompt = "(hbnb) "
-    models = ["BaseModel",
-               "User",
-               "State",
-               "City",
-               "Amenity",
-               "Place",
-               "Review"]
+    models = [
+        "BaseModel",
+        "User",
+        "State",
+        "City",
+        "Amenity",
+        "Place",
+        "Review"
+    ]
 
     def do_quit(self, args):
         """ Quit command to exit the program.\n
@@ -69,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        
+
         args_split = shlex.split(args)
         if args_split[0] not in HBNBCommand.my_models:
             print("** class doesn't exist **")
@@ -105,21 +110,24 @@ class HBNBCommand(cmd.Cmd):
         """
         args_split = shlex.split(args)
         if len(args_split) < 4:
-            print("Usage: update <class name> <id> <attribute name> \"<attribute value>\"")
+            print(
+                "Usage: update <class name> <id> " +
+                "<attribute name> \"<attribute value>\""
+            )
             return
-        
+
         model_name, instance_id, attribute, value = args_split[:4]
 
         if model_name not in HBNBCommand.models:
             print("** class doesn't exist **")
             return
-        
+
         instance_key = "{}.{}".format(model_name, instance_id)
 
         if instance_key not in storage.all():
             print("** no instance found **")
             return
-        
+
         if attribute in ["id", "created_at", "updated_at"]:
             print("** cannot update '{}' attribute **".format(attribute))
             return
@@ -128,18 +136,25 @@ class HBNBCommand(cmd.Cmd):
         if not hasattr(instance, attribute):
             print("** attribute name missing **")
             return
-        
+
         if not isinstance(getattr(instance, attribute), (str, int, float)):
-            print("** only 'simple' attributes can be updated: string, integer, and float **")
+            print(
+                "** only 'simple' attributes " +
+                "can be updated: string, integer, and float **"
+            )
             return
-        
+
         try:
-            setattr(instance, attribute, type(getattr(instance, attribute))(value))
+            setattr(
+                instance, attribute,
+                type(getattr(instance, attribute))(value))
             storage.save()
-            print("Update successful for {}: {}.".format(instance_key, attribute))
+            success_formatted = "{}: {}.".format(instance_key, attribute)
+            print("Update successful for " + success_formatted)
         except ValueError:
-            print("** invalid value for '{}' attribute type **".format(attribute))
-        
+            error_formatted = "'{}' attribute type **".format(attribute)
+            print("** invalid value for " + error_formatted)
+
     def do_destroy(self, args):
         """Deletes an instance based on the class name and id."""
         args_split = shlex.split(args)
@@ -175,6 +190,7 @@ class HBNBCommand(cmd.Cmd):
             if args_split[0] == obj.__class__.__name__:
                 count += 1
         print(count)
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
