@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-""" FileStorage module for handling serialization and deserialization of objects to/from JSON.
+""" FileStorage module for handling serialization
+and deserialization of objects to/from JSON.
 """
 import json
 from os import read
@@ -17,7 +18,8 @@ class FileStorage:
     """ FileStorage class to manage storage of objects in JSON format.
     """
     def __init__(self):
-        """ Initialize FileStorage instance with a default file path and an empty dictionary to store objects.
+        """ Initialize FileStorage instance with a default
+        file path and an empty dictionary to store objects.
         """
         self.__file_path = "file.json"
         self.__objects = {}
