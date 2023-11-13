@@ -7,6 +7,7 @@ from datetime import datetime
 from time import sleep
 from models.base_model import BaseModel
 
+
 class Test_BaseModel(unittest.TestCase):
     """ test instantiation of BaseModel """
     def test_BaseModel_init(self):
@@ -58,6 +59,7 @@ class Test_BaseModel(unittest.TestCase):
         base_model = BaseModel()
         my_data = base_model.to_dict()
         self.assertEqual(type(my_data), dict)
+
 
 if __name__ == "__main__":
     unittest.main()
