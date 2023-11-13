@@ -12,6 +12,7 @@ import models
 import unittest
 from models.place import Place
 
+
 class TestPlace_instantiation(unittest.TestCase):
     """Unittests for testing instantiation of the Place class."""
 
@@ -141,6 +142,7 @@ class TestPlace_instantiation(unittest.TestCase):
         with self.assertRaises(TypeError):
             Place(id=None, created_at=None, updated_at=None)
 
+
 class TestPlace_save(unittest.TestCase):
     """Unittests for testing save method of the Place class."""
 
@@ -191,6 +193,7 @@ class TestPlace_save(unittest.TestCase):
         with open("file.json", "r") as f:
             self.assertIn(place_id, f.read())
 
+
 class TestPlace_to_dict(unittest.TestCase):
     """Unittests for testing to_dict method of the Place class."""
 
@@ -239,6 +242,7 @@ class TestPlace_to_dict(unittest.TestCase):
         place = Place()
         with self.assertRaises(TypeError):
             place.to_dict(None)
+
 
 if __name__ == "__main__":
     unittest.main()

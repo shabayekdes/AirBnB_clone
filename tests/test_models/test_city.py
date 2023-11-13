@@ -14,6 +14,7 @@ from time import sleep
 from models.city import City
 import unittest
 
+
 class TestCityInstantiation(unittest.TestCase):
     """Unittests for testing instantiation of the City class."""
 
