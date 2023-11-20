@@ -38,6 +38,7 @@ class Test_console_prompt(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as output:
             pass
 
+
 class Test_Console_help(unittest.TestCase):
     """test help command"""
     def test_help_quit(self):
@@ -61,7 +62,7 @@ class Test_Console_help(unittest.TestCase):
     def test_help_all(self):
         help = ("Prints all string representation of all instances\n        "
                 "based or not on the class name.")
-        
+
         with patch("sys.stdout", new=StringIO()) as f:
             self.assertFalse(HBNBCommand().onecmd("help all"))
             self.assertEqual(help, f.getvalue().strip())
@@ -75,7 +76,7 @@ class Test_Console_help(unittest.TestCase):
 
     def test_help_destroy(self):
         help = ("Deletes an instance based on the class name and id.")
-        
+
         with patch("sys.stdout", new=StringIO()) as f:
             self.assertFalse(HBNBCommand().onecmd("help destroy"))
             self.assertEqual(help, f.getvalue().strip())

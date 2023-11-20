@@ -58,7 +58,7 @@ class HBNBCommand(cmd.Cmd):
                 if command_args:
                     full_command = "{} {}".format(class_name, command_args)
                 else:
-                    full_command = class_name                
+                    full_command = class_name
                 return argdict[command_name](full_command)
 
         print("*** Unknown syntax: {}".format(arg))

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * === Global style ===
  */
@@ -6,4 +7,15 @@
 body {
   color: #484848;
   font: 14px Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+=======
+header {
+    background-image: url(../images/logo.png);
+    border-bottom: 1px solid #CCCCCC;
+    float: left;
+    color: #fff;
+    height: 70px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position-x: 20px;
+>>>>>>> 232dd6569967743a73eb8bb80cd21f36b055f40d
 }
